@@ -1,0 +1,21 @@
+.navbar {
+  background-color: #e5dec9;
+}
+
+.cart-button {
+  background-color: green;
+}
+
+.Menu-Cart-Container {
+  display: flex;
+}
+
+.cart-aside {
+  width: 40rem;
+  margin-left: 30px;
+  margin-top: 40px;
+}
+
+.submit-order {
+  background-color: green;
+}
