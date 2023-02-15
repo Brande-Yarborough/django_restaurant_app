@@ -5,7 +5,6 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import "./App.css";
 import ImageCarousel from "./components/ImageCarousel";
-import MenuItem from "./components/MenuItem";
 import Order from "./components/Order";
 import Cookies from "js-cookie";
 
@@ -28,7 +27,7 @@ function App() {
   useEffect(() => {
     let newSubTotal = 0;
     for (let i = 0; i < order.length; i++) {
-      newSubTotal += order[i].price;
+      newSubTotal += parseFloat(order[i].price); //use parseFloat bc django brings in decimal field as a string
     }
     setSubTotal(newSubTotal);
     console.log(newSubTotal);
@@ -50,30 +49,33 @@ function App() {
     getmenuItems();
   }, []);
 
-  const addmenuItem = async () => {
-    const item = {
-      name: "A menu item added from React",
-      description: "Description of menu item",
-      price: "Price of item",
-      category: "Category of item",
+  const submitOrder = async (name, subTotal, order) => {
+    const newOrder = {
+      name,
+      subTotal,
+      order,
     };
-
     const options = {
       method: "POST",
       headers: {
         "Content-Type": "applications/json",
         "X-CSRFToken": Cookies.get("csrftoken"),
       },
-      body: JSON.stringify(item),
+      body: JSON.stringify(newOrder),
     };
 
-    const response = await fetch("/api_v1/items/", options);
+    const response = await fetch("/api_v1/orders/", options);
     if (!response.ok) {
       throw new Error("Network response not ok.");
     }
     const data = await response.json();
     console.log({ data });
+    setOrder([...order, data]);
   };
+
+  if (!order) {
+    return <div>Fetching data ...</div>;
+  }
   return (
     //react bootstrap navbar, carousel, and menu list
     <div className="App">
@@ -110,6 +112,7 @@ function App() {
             subTotal={subTotal}
             removeItem={removeItem}
             clearCart={clearCart}
+            submitOrder={submitOrder}
           />
         </div>
       </div>
