@@ -9,7 +9,7 @@ import Order from "./components/Order";
 import Cookies from "js-cookie";
 
 function App() {
-  const [menuItems, setMenuItems] = useState([]); //use null because it is falsy
+  const [menuItems, setMenuItems] = useState([]);
   const [order, setOrder] = useState([]);
   const [subTotal, setSubTotal] = useState(0);
   const addToCart = (menuItem) => {

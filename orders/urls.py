@@ -1,7 +1,7 @@
 from django.urls import path
 
-from .views import ItemListAPIView
+from .views import OrderListAPIView
 
 urlpatterns = [
-    path('', ItemListAPIView.as_view())
+    path('', OrderListAPIView.as_view())
 ]
