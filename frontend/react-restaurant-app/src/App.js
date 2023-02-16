@@ -12,6 +12,12 @@ function App() {
   const [menuItems, setMenuItems] = useState([]);
   const [order, setOrder] = useState([]);
   const [subTotal, setSubTotal] = useState(0);
+  const [customerName, setCustomerName] = useState([]);
+
+  const customer = () => {
+    setCustomerName([...customerName]);
+  };
+
   const addToCart = (menuItem) => {
     setOrder([...order, menuItem]);
   };
@@ -49,9 +55,9 @@ function App() {
     getmenuItems();
   }, []);
 
-  const submitOrder = async (last_name) => {
+  const submitOrder = async (customerName) => {
     const newOrder = {
-      last_name,
+      customer_name: customerName,
       sub_total: subTotal,
       items: order,
     };
@@ -113,6 +119,7 @@ function App() {
             removeItem={removeItem}
             clearCart={clearCart}
             submitOrder={submitOrder}
+            customer={customer}
           />
         </div>
       </div>

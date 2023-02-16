@@ -4,7 +4,14 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 
-function Order({ order, subTotal, removeItem, clearCart, submitOrder }) {
+function Order({
+  order,
+  subTotal,
+  removeItem,
+  clearCart,
+  submitOrder,
+  customer,
+}) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -33,7 +40,7 @@ function Order({ order, subTotal, removeItem, clearCart, submitOrder }) {
     clearCart();
     setShow(false);
     alert("Thank you for your order!");
-    submitOrder("coker");
+    submitOrder({ customer });
   };
 
   return (
@@ -43,7 +50,19 @@ function Order({ order, subTotal, removeItem, clearCart, submitOrder }) {
         <Card.Body>
           {orderHTML}
           <div>Subtotal:${subTotal}</div>
-
+          <Form>
+            <Form.Group
+              className="mb-3"
+              controlId="exampleForm.ControlTextarea1"
+            >
+              <Form.Label>Order Notes</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={2}
+                placeholder="Please enter any notes or customizations"
+              />
+            </Form.Group>
+          </Form>
           <Button
             onClick={handleSubmitOrder}
             className="submit-order"
@@ -74,17 +93,6 @@ function Order({ order, subTotal, removeItem, clearCart, submitOrder }) {
                 type="email"
                 placeholder="name@example.com"
                 autoFocus
-              />
-            </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>Order Notes</Form.Label>
-              <Form.Control
-                as="textarea"
-                rows={2}
-                placeholder="Please enter any notes or customizations"
               />
             </Form.Group>
           </Form>
