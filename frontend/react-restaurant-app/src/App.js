@@ -49,16 +49,16 @@ function App() {
     getmenuItems();
   }, []);
 
-  const submitOrder = async (name, subTotal, order) => {
+  const submitOrder = async (last_name) => {
     const newOrder = {
-      name,
-      subTotal,
-      order,
+      last_name,
+      sub_total: subTotal,
+      items: order,
     };
     const options = {
       method: "POST",
       headers: {
-        "Content-Type": "applications/json",
+        "Content-Type": "application/json",
         "X-CSRFToken": Cookies.get("csrftoken"),
       },
       body: JSON.stringify(newOrder),
@@ -69,7 +69,7 @@ function App() {
       throw new Error("Network response not ok.");
     }
     const data = await response.json();
-    console.log({ data });
+    // console.log({ data });
     setOrder([...order, data]);
   };
 

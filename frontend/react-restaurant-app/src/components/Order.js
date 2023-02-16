@@ -1,9 +1,10 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import React, { useState } from "react";
+import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 
-function Order({ order, subTotal, removeItem, clearCart }) {
+function Order({ order, subTotal, removeItem, clearCart, submitOrder }) {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -32,6 +33,7 @@ function Order({ order, subTotal, removeItem, clearCart }) {
     clearCart();
     setShow(false);
     alert("Thank you for your order!");
+    submitOrder("coker");
   };
 
   return (
@@ -40,7 +42,7 @@ function Order({ order, subTotal, removeItem, clearCart }) {
         <Card.Header>Cart</Card.Header>
         <Card.Body>
           {orderHTML}
-          <div>Total:${subTotal}</div>
+          <div>Subtotal:${subTotal}</div>
 
           <Button
             onClick={handleSubmitOrder}
@@ -56,6 +58,36 @@ function Order({ order, subTotal, removeItem, clearCart }) {
           <Modal.Title>Your Order</Modal.Title>
         </Modal.Header>
         <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Customer Name</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="FirstName LastName"
+                autoFocus
+              />
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Email address</Form.Label>
+              <Form.Control
+                type="email"
+                placeholder="name@example.com"
+                autoFocus
+              />
+            </Form.Group>
+            <Form.Group
+              className="mb-3"
+              controlId="exampleForm.ControlTextarea1"
+            >
+              <Form.Label>Order Notes</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={2}
+                placeholder="Please enter any notes or customizations"
+              />
+            </Form.Group>
+          </Form>
           {orderHTML}
           <div>Total:${subTotal}</div>
         </Modal.Body>
